@@ -15,8 +15,19 @@ fn main() {
         .expect(format!("file does not exist: {}", input_file_name).as_str());
     let minefield = minefield_binding.lines().collect::<Vec<&str>>();
 
-    //let length =
-    //for
+    if !minefield.is_empty() {
+        let len = minefield[0].len();
+        for row in minefield.iter().skip(1) {
+            if row.len() != len {
+                std::process::exit(1);
+            }
+            for c in row.chars() {
+                if c != '*' && c != ' ' {
+                    std::process::exit(1);
+                }
+            }
+        }
+    }
 
     let new_minefiled = annotate(minefield.as_slice());
     let mut output_string = new_minefiled.join("\n");

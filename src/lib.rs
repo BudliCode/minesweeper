@@ -1,4 +1,3 @@
-use std::cmp::max;
 use std::cmp::min;
 
 pub fn annotate(minefield: &[&str]) -> Vec<String> {
