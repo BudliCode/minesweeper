@@ -14,6 +14,8 @@ cp ../test_files/*.mines .
 cp ../test_files/*.expected .
 cp ../test_files/*.error .
 
+code=0
+
 # run all tests
 for file in *.mines ; do 
    echo "Run test $file"
@@ -22,7 +24,10 @@ for file in *.mines ; do
    $exe_file $file
    diff $expected_result_file $output_file
    if [[ $? -ne 0 ]]; then
-      exit 1
+      echo "$(tput setaf 1)test failed$(tput sgr0)"
+      code=1
+   else
+      echo "$(tput setaf 2)test OK$(tput sgr0)"
    fi
 done 
 
@@ -30,8 +35,13 @@ for file in *.error ; do
    echo "Run test $file"
    $exe_file $file
    if [[ $? -eq 0 ]]; then
-      exit 1
+      echo "$(tput setaf 1)test failed$(tput sgr0)"
+      code=1
+   else
+      echo "$(tput setaf 2)test OK$(tput sgr0)"
    fi
 
 done
+
+exit $code
 
